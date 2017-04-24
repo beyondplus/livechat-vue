@@ -1,0 +1,49 @@
+body {
+    background: #e2e2e2;
+}
+#livechat {
+    padding: 5px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background: blue;
+    width: 300px;
+    margin-right: 10px;
+}
+
+#livechat img {
+    vertical-align: middle; 
+    padding-right: 10px;
+}
+
+#livechat a {
+    color : #fff;
+}
+
+#livechatBox {
+    display: none;
+}
+
+#livechatTextBox {
+    padding: 5px;
+    height: 300px;
+    width: 280px;
+    background: #fff;
+    overflow-y: scroll;
+}
+
+#livechatTextBox ul {
+    padding: 0px
+}
+
+#livechatTextBox ul li {
+    list-style: none;
+}
+
+#livechatMessageBox {
+    padding: 5px;
+    height: 30px;
+    width: 280px;
+    background: #fff;
+    overflow-y: scroll;
+}

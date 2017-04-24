@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" type="text/css" href="css/custom.css">
+</head>
+<body>
+	<div class="col-md-2 lang-dropdown" id="app"> 
+    <div id="livechat">
+      <a href="javascript:void(0)" v-on:click="liveChatOnClick()"><img src="img/livechat.png" >Live Chat</a>
+      <a href="javascript:void(0)" v-on:click="liveChatClear()">Close</a>
+      <div id="livechatBox">
+        <div id="livechatTextBox">
+          <ul>
+            <li>{{ result.user }} : {{ result.text }}</li>
+          </ul>
+        </div>
+        <textarea name="text" placeholder="Type the message " id="livechatMessageBox"> </textarea><button type="button" name=""  v-on:click="liveChatSubmit">Submit</button>
+      </div>
+    </div>
+  </div>
+  <script  src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.2.6/vue.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/1.2.1/vue-resource.min.js"></script>
+    
+<script>
+  var app = new Vue({
+      el: '#app',
+      data: {
+            session_id : "",
+            salt_key : "",  
+            result : {
+              user : "",
+              text : ""
+            },
+            data : {
+              user : "",
+              text : ""
+            },
+            start : null
+      },
+      methods: {
+         serviceProvider : function() {
+            this.$http.get('http://localhost/projects/livechat-vue/php/fetch.php').then(response => {
+              // get body data
+              this.result = response.body;
+            }, response => {
+              // error callback
+            });
+         },
+         liveChatOnClick: function() {
+            this.start = window.setInterval(() => {
+              this.serviceProvider()
+            },1000);
+            document.getElementById('livechatBox').style.display = "block";
+         },
+         liveChatClear: function() {
+            window.clearInterval(this.start);
+            document.getElementById('livechatBox').style.display = "none";
+         },
+         liveChatSubmit: function() {
+            var data = {user : "" , text : ""};
+            this.$http.post('http://localhost/projects/livechat-vue/php/post.php', data ).then(response => {
+
+            }, response => {
+
+            });
+         }
+      },
+      mounted() { 
+      }
+  });
+</script>
+</body>
+</html>
