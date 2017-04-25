@@ -7,3 +7,11 @@ Live Chat Component for Customer Service. It should use with token ( Eg. Laravel
 
 ![alt text](https://github.com/beyondplus/livechat-vue/raw/master/raw/live-chat.png "Live Chat Vue")
 
+## Our Website
+
+[www.beyondplus.biz](http://www.beyondplus.biz)
+
+
+## License
+
+Livechat Vue is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).

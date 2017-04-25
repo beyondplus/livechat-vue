@@ -10,13 +10,22 @@
     <div id="livechat">
       <a href="javascript:void(0)" v-on:click="liveChatOnClick()"><img src="img/livechat.png" >Live Chat</a>
       <a href="javascript:void(0)" v-on:click="liveChatClear()">Close</a>
+      
       <div id="livechatBox">
-        <div id="livechatTextBox">
-          <ul>
-            <li v-for="r in result">{{ r.user }} : {{ r.text }}</li>
-          </ul>
+        <div id="que">
+            <h2>Type the user name</h2>
+            <input type="text" name="" v-model="data.user">
+            <button v-on:click="queSubmit">Submit</button>
         </div>
-        <textarea name="text" placeholder="Type the message " id="livechatMessageBox" v-model="data.text"> </textarea><button type="button" name=""  v-on:click="liveChatSubmit">Submit</button>
+        <div id="live">
+          <div id="livechatTextBox">
+            <ul>
+              <li v-for="r in result">{{ r.user }} : {{ r.text }}</li>
+            </ul>
+          </div>
+          <textarea name="text" placeholder="Type the message " id="livechatMessageBox" v-model="data.text"> </textarea>
+          <button type="button" name=""  v-on:click="liveChatSubmit">Submit</button>
+        </div>
       </div>
     </div>
   </div>
@@ -34,7 +43,7 @@
               text : ""
             }],
             data : {
-              user : "ko ko",
+              user : "",
               text : ""
             },
             start : null
@@ -55,8 +64,13 @@
          liveChatOnClick: function() {
             this.start = window.setInterval(() => {
               this.serviceProvider()
-            },1500);
+            },1000);
+            document.getElementById('live').style.display = "none";
             document.getElementById('livechatBox').style.display = "block";
+         },
+         queSubmit: function () {
+            document.getElementById('que').style.display = "none";
+            document.getElementById('live').style.display = "block";
          },
          liveChatClear: function() {
             window.clearInterval(this.start);
@@ -68,7 +82,7 @@
                emulateJSON: true
             }).then(response => {
               this.result = response.body.data;
-              this.text = ""
+              this.data.text = ""
             }, response => {
 
             });

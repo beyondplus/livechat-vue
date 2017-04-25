@@ -32,6 +32,14 @@ body {
     overflow-y: scroll;
 }
 
+#que {
+    padding: 5px;
+    height: 300px;
+    width: 280px;
+    background: #fff;
+    overflow-y: scroll;
+}
+
 #livechatTextBox ul {
     padding: 0px
 }
