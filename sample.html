@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Document</title>
+	<title>Live Chat Vue</title>
 	<link rel="stylesheet" type="text/css" href="css/custom.css">
 </head>
 <body>
@@ -13,10 +13,10 @@
       <div id="livechatBox">
         <div id="livechatTextBox">
           <ul>
-            <li>{{ result.user }} : {{ result.text }}</li>
+            <li v-for="r in result">{{ r.user }} : {{ r.text }}</li>
           </ul>
         </div>
-        <textarea name="text" placeholder="Type the message " id="livechatMessageBox"> </textarea><button type="button" name=""  v-on:click="liveChatSubmit">Submit</button>
+        <textarea name="text" placeholder="Type the message " id="livechatMessageBox" v-model="data.text"> </textarea><button type="button" name=""  v-on:click="liveChatSubmit">Submit</button>
       </div>
     </div>
   </div>
@@ -29,21 +29,25 @@
       data: {
             session_id : "",
             salt_key : "",  
-            result : {
+            result : [{
               user : "",
               text : ""
-            },
+            }],
             data : {
-              user : "",
+              user : "ko ko",
               text : ""
             },
             start : null
       },
       methods: {
          serviceProvider : function() {
-            this.$http.get('http://localhost/projects/livechat-vue/php/fetch.php').then(response => {
+            var data = {user : "" , text : ""};
+            this.$http.get('http://localhost/projects/livechat-vue/php/fetch.php', data ).then(response => {
               // get body data
-              this.result = response.body;
+              if(response.body != null) {
+                this.result = response.body.data;
+              }
+              
             }, response => {
               // error callback
             });
@@ -51,7 +55,7 @@
          liveChatOnClick: function() {
             this.start = window.setInterval(() => {
               this.serviceProvider()
-            },1000);
+            },1500);
             document.getElementById('livechatBox').style.display = "block";
          },
          liveChatClear: function() {
@@ -59,9 +63,11 @@
             document.getElementById('livechatBox').style.display = "none";
          },
          liveChatSubmit: function() {
-            var data = {user : "" , text : ""};
-            this.$http.post('http://localhost/projects/livechat-vue/php/post.php', data ).then(response => {
-
+            var data = { user : this.data.user , text : this.data.text };
+            this.$http.post('http://localhost/projects/livechat-vue/php/fetch.php', data ,  {
+               emulateJSON: true
+            }).then(response => {
+              this.result = response.body.data;
             }, response => {
 
             });
