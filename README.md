@@ -3,7 +3,7 @@ Live Chat Component for Customer Service. It should use with token ( Eg. Laravel
 
 # Installation
 - find fetch.php in php folder
-- modifile http://localhost/projects/livechat-vue/php/fetch.php in sample.html
+- modifile http://localhost/projects/livechat-vue/php/fetch.php in js/livechat-beyondplus.js
 
 ![alt text](https://github.com/beyondplus/livechat-vue/raw/master/raw/live-chat.png "Live Chat Vue")
 
